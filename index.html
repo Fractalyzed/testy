@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vortex Tech | Original Roblox Assets & Scripts</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #00b2ff 0%, #1565c0 50%, #0d47a1 100%);
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        .roblox-blocks {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
+        }
+
+        .block {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .block:nth-child(odd) {
+            animation-direction: reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+
+        @keyframes robloxGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 178, 255, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(0, 178, 255, 0.8); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            padding: 20px 0;
+            position: relative;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            border-bottom: 3px solid #00b2ff;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #ffffff;
+            text-shadow: 0 0 20px rgba(0, 178, 255, 0.8);
+            position: relative;
+        }
+
+        .logo::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            background: linear-gradient(45deg, #00b2ff, #ff6b00, #ff0080);
+            border-radius: 10px;
+            z-index: -1;
+            opacity: 0.3;
+            animation: robloxGlow 3s ease-in-out infinite;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            padding: 10px 20px;
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a:hover {
+            background: rgba(0, 178, 255, 0.3);
+            border-color: #00b2ff;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 178, 255, 0.3);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 120px 0 150px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect x="10" y="10" width="15" height="15" fill="rgba(255,255,255,0.1)" rx="2"/><rect x="30" y="20" width="20" height="10" fill="rgba(255,255,255,0.1)" rx="2"/><rect x="60" y="15" width="10" height="20" fill="rgba(255,255,255,0.1)" rx="2"/><rect x="20" y="40" width="25" height="8" fill="rgba(255,255,255,0.1)" rx="2"/><rect x="70" y="45" width="12" height="12" fill="rgba(255,255,255,0.1)" rx="2"/></svg>') repeat;
+            opacity: 0.1;
+            animation: float 10s linear infinite;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            font-weight: 900;
+            text-shadow: 0 0 30px rgba(0, 178, 255, 0.8);
+            background: linear-gradient(45deg, #ffffff, #00b2ff, #ff6b00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: float 4s ease-in-out infinite;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 50px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+            font-weight: 500;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .roblox-button {
+            display: inline-block;
+            padding: 18px 45px;
+            background: linear-gradient(135deg, #00b2ff, #0080ff);
+            color: white;
+            text-decoration: none;
+            border-radius: 15px;
+            font-weight: 900;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(0, 178, 255, 0.4);
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .roblox-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .roblox-button:hover::before {
+            left: 100%;
+        }
+
+        .roblox-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 178, 255, 0.6);
+            background: linear-gradient(135deg, #0080ff, #00b2ff);
+        }
+
+        .features {
+            padding: 100px 0;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(15px);
+            margin: 0 20px;
+            border-radius: 25px;
+            border: 3px solid rgba(0, 178, 255, 0.3);
+            position: relative;
+        }
+
+        .features::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #00b2ff, #ff6b00, #ff0080, #00b2ff);
+            border-radius: 25px;
+            z-index: -1;
+            opacity: 0.5;
+            animation: robloxGlow 4s ease-in-out infinite;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 3.5rem;
+            margin-bottom: 60px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #ffffff;
+            text-shadow: 0 0 25px rgba(0, 178, 255, 0.8);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, rgba(0, 178, 255, 0.2), rgba(255, 107, 0, 0.1));
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            border: 3px solid rgba(0, 178, 255, 0.3);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50"><rect x="5" y="5" width="8" height="8" fill="rgba(255,255,255,0.1)" rx="1"/><rect x="20" y="10" width="6" height="6" fill="rgba(255,255,255,0.1)" rx="1"/><rect x="35" y="8" width="10" height="4" fill="rgba(255,255,255,0.1)" rx="1"/></svg>') repeat;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .feature-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px) scale(1.05);
+            box-shadow: 0 25px 50px rgba(0, 178, 255, 0.4);
+            border-color: #00b2ff;
+            background: linear-gradient(135deg, rgba(0, 178, 255, 0.3), rgba(255, 107, 0, 0.2));
+        }
+
+        .feature-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            display: block;
+            filter: drop-shadow(0 0 15px rgba(0, 178, 255, 0.8));
+        }
+
+        .feature-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: #ffffff;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(0, 178, 255, 0.5);
+        }
+
+        .feature-card p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .process {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .process h2 {
+            font-size: 3.5rem;
+            margin-bottom: 60px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #ffffff;
+            text-shadow: 0 0 25px rgba(255, 107, 0, 0.8);
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .step {
+            position: relative;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(255, 107, 0, 0.2), rgba(0, 178, 255, 0.1));
+            border-radius: 20px;
+            border: 3px solid rgba(255, 107, 0, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .step:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(255, 107, 0, 0.3);
+            border-color: #ff6b00;
+        }
+
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ff6b00, #ff0080);
+            color: white;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: 900;
+            margin: 0 auto 25px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 20px rgba(255, 107, 0, 0.4);
+        }
+
+        .step h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: #ffffff;
+            font-weight: 800;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px rgba(255, 107, 0, 0.5);
+        }
+
+        .step p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .why-us {
+            padding: 100px 0;
+            background: rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(15px);
+            margin: 0 20px;
+            border-radius: 25px;
+            border: 3px solid rgba(255, 0, 128, 0.3);
+        }
+
+        .why-us h2 {
+            text-align: center;
+            font-size: 3.5rem;
+            margin-bottom: 60px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #ffffff;
+            text-shadow: 0 0 25px rgba(255, 0, 128, 0.8);
+        }
+
+        .benefits {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+        }
+
+        .benefit {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+            padding: 25px;
+            background: linear-gradient(135deg, rgba(255, 0, 128, 0.2), rgba(0, 178, 255, 0.1));
+            border-radius: 20px;
+            border: 3px solid rgba(255, 0, 128, 0.3);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .benefit:hover {
+            background: linear-gradient(135deg, rgba(255, 0, 128, 0.3), rgba(0, 178, 255, 0.2));
+            transform: translateX(15px);
+            border-color: #ff0080;
+            box-shadow: 0 15px 30px rgba(255, 0, 128, 0.3);
+        }
+
+        .benefit-icon {
+            font-size: 2.5rem;
+            color: #ff0080;
+            filter: drop-shadow(0 0 10px rgba(255, 0, 128, 0.8));
+        }
+
+        .benefit-text {
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        footer {
+            text-align: center;
+            padding: 80px 0;
+            margin-top: 100px;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.5), rgba(0, 178, 255, 0.1));
+            border-top: 4px solid #00b2ff;
+            backdrop-filter: blur(15px);
+        }
+
+        .footer-content {
+            margin-bottom: 40px;
+        }
+
+        .footer-content h3 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #ffffff;
+            text-shadow: 0 0 25px rgba(0, 178, 255, 0.8);
+        }
+
+        .footer-content p {
+            font-size: 1.2rem;
+            font-weight: 500;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            .features h2, .process h2, .why-us h2 {
+                font-size: 2.5rem;
+            }
+
+            .features, .why-us {
+                margin: 0 10px;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="roblox-blocks" id="robloxBlocks"></div>
+
+    <header>
+        <nav class="container">
+            <div class="logo">🎮 VORTEX TECH</div>
+            <ul class="nav-links">
+                <li><a href="#features">Assets</a></li>
+                <li><a href="#process">Buy Now</a></li>
+                <li><a href="#why">Quality</a></li>
+                <li><a href="#contact">Discord</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>🔥 Premium Roblox Studio 🔥</h1>
+                <p>Welcome to Vortex Tech — your ultimate Roblox development powerhouse! We create 100% original models, scripts, UIs, and game assets that will make your Roblox experience absolutely legendary. No stolen content, no compromises — just pure quality that gets results!</p>
+                <a href="#contact" class="roblox-button">🚀 Join Our Community</a>
+            </div>
+        </section>
+
+        <section class="features" id="features">
+            <div class="container">
+                <h2>🛠️ Our Epic Arsenal</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <span class="feature-icon">⚡</span>
+                        <h3>Power Scripts</h3>
+                        <p>Game-changing scripts from basic utilities to advanced systems that'll blow your mind and boost your gameplay!</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">🏗️</span>
+                        <h3>Epic Models</h3>
+                        <p>Stunning builds, detailed props, and architectural masterpieces ready to drop into your world and amaze players!</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">🎨</span>
+                        <h3>Pro UI/GFX</h3>
+                        <p>Sleek interfaces and eye-catching graphics that make your game look professional and stand out from the crowd!</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">📦</span>
+                        <h3>Mega Packs</h3>
+                        <p>Complete content bundles packed with everything you need — just plug and play for instant awesome results!</p>
+                    </div>
+                    <div class="feature-card">
+                        <span class="feature-icon">⚙️</span>
+                        <h3>Custom Builds</h3>
+                        <p>Have a crazy idea? We'll bring it to life! Custom orders tailored exactly to your vision and specifications!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="process" id="process">
+            <div class="container">
+                <h2>🔥 How to Get Your Assets</h2>
+                <div class="process-steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3>Create Ticket</h3>
+                        <p>Jump into our Discord and open a ticket in the "・Tickets" category — we'll be right with you!</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3>Pick & Price</h3>
+                        <p>Tell us what you want and we'll confirm the details and our super affordable pricing!</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3>Quick Payment</h3>
+                        <p>Pay using our secure methods — we'll guide you through every step of the process!</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <h3>Instant Delivery</h3>
+                        <p>Get your premium assets delivered instantly once payment clears — time to build something amazing!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="why-us" id="why">
+            <div class="container">
+                <h2>💎 Why We're The Best Choice</h2>
+                <div class="benefits">
+                    <div class="benefit">
+                        <span class="benefit-icon">✨</span>
+                        <span class="benefit-text">100% original content — zero stolen assets, pure creativity!</span>
+                    </div>
+                    <div class="benefit">
+                        <span class="benefit-icon">💰</span>
+                        <span class="benefit-text">Incredibly affordable prices that won't break your Robux bank!</span>
+                    </div>
+                    <div class="benefit">
+                        <span class="benefit-icon">⚡</span>
+                        <span class="benefit-text">Lightning-fast support from our awesome team!</span>
+                    </div>
+                    <div class="benefit">
+                        <span class="benefit-icon">🗂️</span>
+                        <span class="benefit-text">Super organized Discord server — find everything easily!</span>
+                    </div>
+                    <div class="benefit">
+                        <span class="benefit-icon">🎯</span>
+                        <span class="benefit-text">Custom requests welcome — we love unique challenges!</span>
+                    </div>
+                    <div class="benefit">
+                        <span class="benefit-icon">🔒</span>
+                        <span class="benefit-text">Safe, secure, and transparent — trustworthy every time!</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <h3>🚀 Ready to Dominate Roblox?</h3>
+                <p>Join thousands of developers who trust Vortex Tech for premium assets. Your next amazing creation starts here!</p>
+            </div>
+            <a href="#" class="roblox-button">🎮 Join Discord Now</a>
+        </div>
+    </footer>
+
+    <script>
+        // Create floating Roblox-inspired blocks
+        function createRobloxBlocks() {
+            const container = document.getElementById('robloxBlocks');
+            const blockSizes = [20, 30, 40, 25, 35];
+            const numberOfBlocks = 15;
+
+            for (let i = 0; i < numberOfBlocks; i++) {
+                const block = document.createElement('div');
+                block.className = 'block';
+                
+                const size = blockSizes[Math.floor(Math.random() * blockSizes.length)];
+                block.style.width = size + 'px';
+                block.style.height = size + 'px';
+                block.style.left = Math.random() * 100 + '%';
+                block.style.top = Math.random() * 100 + '%';
+                block.style.animationDelay = Math.random() * 6 + 's';
+                block.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                
+                container.appendChild(block);
+            }
+        }
+
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Enhanced parallax effect
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.3;
+            const heroElements = document.querySelectorAll('.hero h1, .hero p');
+            
+            heroElements.forEach(element => {
+                element.style.transform = `translateY(${rate}px)`;
+            });
+
+            // Animate blocks on scroll
+            const blocks = document.querySelectorAll('.block');
+            blocks.forEach((block, index) => {
+                const speed = 0.1 + (index % 3) * 0.05;
+                const yPos = -(scrolled * speed);
+                block.style.transform += ` translateY(${yPos}px)`;
+            });
+        });
+
+        // Enhanced intersection observer
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0) scale(1)';
+                    entry.target.classList.add('animated');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.feature-card, .benefit, .step').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(50px) scale(0.9)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(el);
+        });
+
+        // Enhanced button effects
+        document.querySelectorAll('.roblox-button').forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.05)';
+                this.style.boxShadow = '0 20px 40px rgba(0, 178, 255, 0.8)';
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+                this.style.boxShadow = '0 8px 25px rgba(0, 178, 255, 0.4)';
+            });
+
+            // Ripple effect on click
+            button.addEventListener('click', function(e) {
+                const ripple = document.createElement('span');
+                const rect = this.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.width = ripple.style.height = size + 'px';
+                ripple.style.left = x + 'px';
+                ripple.style.top = y + 'px';
+                ripple.style.position = 'absolute';
+                ripple.style.borderRadius = '50%';
+                ripple.style.background = 'rgba(255, 255, 255, 0.5)';
+                ripple.style.pointerEvents = 'none';
+                ripple.style.animation = 'ripple 0.6s linear';
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    ripple.remove();
+                }, 600);
+            });
+        });
+
+        // Add ripple animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(2);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize everything
+        createRobloxBlocks();
+
+        // Add dynamic background color shifts
+        let colorShift = 0;
+        setInterval(() => {
+            colorShift += 0.5;
+            document.body.style.background = `linear-gradient(135deg, 
+                hsl(${200 + Math.sin(colorShift * 0.01) * 20}, 100%, 50%) 0%, 
+                hsl(${220 + Math.cos(colorShift * 0.008) * 15}, 80%, 40%) 50%, 
+                hsl(${210 + Math.sin(colorShift * 0.012) * 25}, 90%, 25%) 100%)`;
+        }, 100);
+    </script>
+</body>
+</html>
